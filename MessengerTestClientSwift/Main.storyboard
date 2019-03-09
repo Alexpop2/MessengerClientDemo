@@ -13,7 +13,7 @@
         <!--Phone View Controller-->
         <scene sceneID="GoH-dc-ig7">
             <objects>
-                <viewController storyboardIdentifier="phoneViewController" id="UAq-Wo-IY5" customClass="PhoneViewController" customModule="notes_test_grpc" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="phoneViewController" id="UAq-Wo-IY5" customClass="PhoneViewController" customModule="MessengerTestClientSwift" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="bva-cB-lIb">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -53,6 +53,7 @@
                     </view>
                     <connections>
                         <outlet property="phoneTextView" destination="5d9-Wc-m01" id="gcy-Mz-jGY"/>
+                        <outlet property="phoneTextViewCenterYConstraint" destination="Fzo-xV-0jI" id="cUr-vq-LTD"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fmT-yy-3Ha" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -62,7 +63,7 @@
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController storyboardIdentifier="messengerViewController" id="BYZ-38-t0r" customClass="ViewController" customModule="notes_test_grpc" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="messengerViewController" id="BYZ-38-t0r" customClass="ViewController" customModule="MessengerTestClientSwift" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -74,31 +75,12 @@
                                     <action selector="sendClicked:" destination="BYZ-38-t0r" eventType="touchUpInside" id="fSC-PH-w4v"/>
                                 </connections>
                             </button>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="0kb-pq-aeh">
-                                <rect key="frame" x="15" y="35" width="345" height="30"/>
-                                <nil key="textColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Iun-DU-bAQ">
-                                <rect key="frame" x="15" y="80" width="345" height="30"/>
-                                <nil key="textColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="c93-dt-5X2">
-                                <rect key="frame" x="15" y="170" width="345" height="342"/>
+                                <rect key="frame" x="15" y="35" width="345" height="477"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IKJ-FV-At7">
-                                <rect key="frame" x="15" y="125" width="345" height="30"/>
-                                <state key="normal" title="Connect"/>
-                                <connections>
-                                    <action selector="connectClicked:" destination="BYZ-38-t0r" eventType="touchUpInside" id="MIX-2P-Qga"/>
-                                </connections>
-                            </button>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="HG8-Sj-ysI">
                                 <rect key="frame" x="15" y="572" width="345" height="30"/>
                                 <nil key="textColor"/>
@@ -114,36 +96,26 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="0kb-pq-aeh" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="15" id="5Eg-A9-H2Z"/>
-                            <constraint firstItem="Iun-DU-bAQ" firstAttribute="top" secondItem="0kb-pq-aeh" secondAttribute="bottom" constant="15" id="61X-hJ-g9m"/>
                             <constraint firstItem="WHr-at-S7h" firstAttribute="top" secondItem="c93-dt-5X2" secondAttribute="bottom" constant="15" id="7Q5-GT-zQ8"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Iun-DU-bAQ" secondAttribute="trailing" constant="15" id="Cwz-oW-xm5"/>
-                            <constraint firstItem="IKJ-FV-At7" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="15" id="FxL-6K-vn3"/>
+                            <constraint firstItem="c93-dt-5X2" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="15" id="Gdf-Eg-zX5"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="HG8-Sj-ysI" secondAttribute="trailing" constant="15" id="Gid-ZL-qpm"/>
                             <constraint firstItem="c93-dt-5X2" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="15" id="HuV-zS-Xxo"/>
                             <constraint firstItem="d1N-C6-Jfz" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="LoI-66-2m0"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="d1N-C6-Jfz" secondAttribute="bottom" constant="20" id="OUJ-bM-hRL"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="0kb-pq-aeh" secondAttribute="trailing" constant="15" id="RSo-fW-KUX"/>
-                            <constraint firstItem="c93-dt-5X2" firstAttribute="top" secondItem="IKJ-FV-At7" secondAttribute="bottom" constant="15" id="VLb-OA-Bh3"/>
                             <constraint firstItem="WHr-at-S7h" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="15" id="VbB-na-Bwc"/>
-                            <constraint firstItem="0kb-pq-aeh" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="15" id="Veb-At-QqZ"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="c93-dt-5X2" secondAttribute="trailing" constant="15" id="hbo-nP-9mJ"/>
-                            <constraint firstItem="IKJ-FV-At7" firstAttribute="top" secondItem="Iun-DU-bAQ" secondAttribute="bottom" constant="15" id="iPn-3n-Oz7"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="IKJ-FV-At7" secondAttribute="trailing" constant="15" id="ljX-qg-L27"/>
                             <constraint firstItem="d1N-C6-Jfz" firstAttribute="top" secondItem="HG8-Sj-ysI" secondAttribute="bottom" constant="15" id="oT4-oT-9Ys"/>
                             <constraint firstItem="HG8-Sj-ysI" firstAttribute="top" secondItem="WHr-at-S7h" secondAttribute="bottom" constant="15" id="oxh-fd-Adc"/>
                             <constraint firstItem="HG8-Sj-ysI" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="15" id="tOu-CU-7Oc"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="WHr-at-S7h" secondAttribute="trailing" constant="15" id="wTS-GO-VfL"/>
-                            <constraint firstItem="Iun-DU-bAQ" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="15" id="xWL-9f-aqZ"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
-                        <outlet property="login" destination="0kb-pq-aeh" id="he5-Wp-ziK"/>
+                        <outlet property="composeViewBottomConstraint" destination="OUJ-bM-hRL" id="f79-Ts-7sj"/>
                         <outlet property="message" destination="HG8-Sj-ysI" id="7Ej-v4-hYY"/>
                         <outlet property="receiverId" destination="WHr-at-S7h" id="wkx-lC-4QF"/>
                         <outlet property="text" destination="c93-dt-5X2" id="H61-Pt-SJe"/>
-                        <outlet property="token" destination="Iun-DU-bAQ" id="044-gc-RkG"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -153,7 +125,7 @@
         <!--Verification View Controller-->
         <scene sceneID="4Dg-eq-edF">
             <objects>
-                <viewController storyboardIdentifier="verificationViewController" id="3hF-yD-epo" customClass="VerificationViewController" customModule="notes_test_grpc" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="verificationViewController" id="3hF-yD-epo" customClass="VerificationViewController" customModule="MessengerTestClientSwift" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Cso-SZ-2hH">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -193,6 +165,7 @@
                     </view>
                     <connections>
                         <outlet property="codeTextView" destination="k8U-e6-dVF" id="rJ8-Or-Cj7"/>
+                        <outlet property="codeTextViewCenterYConstraint" destination="HiW-jh-5z2" id="HHA-am-iky"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vqg-2p-DVZ" userLabel="First Responder" sceneMemberID="firstResponder"/>

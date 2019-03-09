@@ -8,23 +8,37 @@
 
 import UIKit
 import Firebase
+import MessagesClientGRPC
+
+// MARK: - Messenger screen
 
 class ViewController: UIViewController {
 
-    @IBOutlet weak var login: UITextField!
-    @IBOutlet weak var token: UITextField!
+    // MARK: - Outlets
+    
     @IBOutlet weak var text: UITextView!
-    
-    var loginData = ""
-    var tokenData = ""
-    
     @IBOutlet weak var receiverId: UITextField!
     @IBOutlet weak var message: UITextField!
+    @IBOutlet weak var composeViewBottomConstraint: NSLayoutConstraint!
     
-    var tokenReceived = ""
+    // MARK: - Properties
+    
+    var messageClient: MessagesClientGRPC!
+    var loginData = ""
+    var tokenData = ""
+    var tryReconnect = true
+    
+    // MARK: - viewdidload
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // MARK: Adding keyboard observer
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+        
+        // MARK: Getting phone and message server token
         
         guard let getPhone = UserDefaults.standard.string(forKey: "authPhone") else { return }
         guard let getToken = UserDefaults.standard.string(forKey: "messangerToken") else { return }
@@ -32,58 +46,91 @@ class ViewController: UIViewController {
         loginData = getPhone
         tokenData = getToken
         
+        // MARK: Connect to messages server
+        
         connect()
     }
+    
+    // MARK: - Set constraint for center field while keyboard show
+
+    @objc func keyboardWillShow(notification: Notification) {
+        
+        let keyboardSize = (notification.userInfo?  [UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue
+        let keyboardHeight = keyboardSize?.height
+        if #available(iOS 11.0, *){
+            self.composeViewBottomConstraint.constant = keyboardHeight! - view.safeAreaInsets.bottom
+        }
+        else {
+            self.composeViewBottomConstraint.constant = view.safeAreaInsets.bottom
+        }
+        
+        UIView.animate(withDuration: 0.5){
+            
+            self.view.layoutIfNeeded()
+            self.text.scrollRangeToVisible(NSRange(location: self.text.text.count - 1, length: 0))
+        }
+        
+        
+    }
+    
+    // MARK: - Set constraint for center field while keyboard not show
+
+    @objc func keyboardWillHide(notification: Notification){
+        
+        self.composeViewBottomConstraint.constant =  15 // or change according to your logic
+        UIView.animate(withDuration: 0.5){
+            self.view.layoutIfNeeded()
+            self.text.scrollRangeToVisible(NSRange(location: self.text.text.count - 1, length: 0))
+        }
+        
+    }
+    
+    // MARK: - Connect to messages server
     
     func connect() {
-        DataRepository.shared.performMessageStream(login: loginData, token: tokenData, completion: { (message) in
-            if(message.id == "-1" && message.text == "Connected") {
-                self.tokenReceived = message.token
-            }
+        
+        // MARK: Creating message token, and perform message data
+        
+        let messageToken = MCPerformMessageToken(data: tokenData)
+        let performMessageData = MCPerformMessageData(phone: loginData, messageClientToken: messageToken)
+        
+        // MARK: Performing messages stream
+        
+        messageClient.performMessageStream(data: performMessageData) { (message) in
+            
+            // MARK: Echo message data
+            
             self.text.text += "\n\(message.receiverID) - \(message.senderID) - \(message.text) (\(message.state))"
-            /*let point = CGPoint(x: 0.0, y: (self.text.contentSize.height - self.text.bounds.height))
-             self.text.setContentOffset(point, animated: false)*/
             self.text.scrollRangeToVisible(NSRange(location: self.text.text.count - 1, length: 0))
-        })
-    }
-
-    @IBAction func connectClicked(_ sender: UIButton) {
-        connect()
-        //guard let userID = Auth.auth().currentUser?.uid else { return }
-        
-        /*
-        
-        DataRepository.shared.performMessageStream(login: self.login.text!, token: self.token.text!, completion: { (message) in
-            if(message.id == "-1" && message.text == "Connected") {
-                self.tokenReceived = message.token
+            
+            // MARK: If user is "kicked" by another user with same phone, setting off trying reconnection
+            
+            if(message.id == "-1" && (message.text == "Invalid token" || message.text == "User not found")) {
+                self.tryReconnect = false
             }
-            self.text.text += "\n\(message.receiverID) - \(message.senderID) - \(message.text) (\(message.state))"
-            /*let point = CGPoint(x: 0.0, y: (self.text.contentSize.height - self.text.bounds.height))
-            self.text.setContentOffset(point, animated: false)*/
-            self.text.scrollRangeToVisible(NSRange(location: self.text.text.count - 1, length: 0))
-        }) */
-        
-//        var connectionData = Connectionservice_ConnectionData();
-//        connectionData.login = login.text!
-//        connectionData.token = token.text!
-//
-//        DataRepository.shared.connect(data: connectionData) { (state, result) in
-//            guard let stateUnwrapped = state else { return }
-//            self.authCode = stateUnwrapped.authCode
-//            self.text.text = self.authCode
-//            DataRepository.shared.performMessageStream(login: self.login.text!, token: self.authCode, completion: { (message) in
-//                self.text.text += "\n\(message.receiverID) - \(message.senderID) - \(message.text)"
-//            })
-//        }
+            
+            // MARK: Reconnect on disconnect
+            
+            if(message.text == "Disconnected" && message.id == "-1" && self.tryReconnect) {
+                self.text.text += "Trying to reconnect"
+                self.connect()
+            }
+        }
     }
     
+    // MARK: - Send button clicked
+    
     @IBAction func sendClicked(_ sender: UIButton) {
-        var message = Messageservice_Message();
-        message.receiverID = receiverId.text!;
-        message.text = self.message.text!
-        message.token = self.tokenReceived
-        message.senderID = loginData
-        DataRepository.shared.send(message: message) { (state, result) in
+        guard let text = self.message.text else { return }
+        guard let receiverID = receiverId.text else { return }
+        
+        // MARK: Creating message with text and receiver phone
+        
+        let message = MCMessage(text: text, receiverID: receiverID)
+        
+        // MARK: Sending message
+        
+        messageClient.send(message: message) { (result) in
         }
     }
 }

@@ -1,0 +1,128 @@
+PODS:
+  - BoringSSL (10.0.6):
+    - BoringSSL/Implementation (= 10.0.6)
+    - BoringSSL/Interface (= 10.0.6)
+  - BoringSSL/Implementation (10.0.6):
+    - BoringSSL/Interface (= 10.0.6)
+  - BoringSSL/Interface (10.0.6)
+  - Firebase/Auth (5.17.0):
+    - Firebase/CoreOnly
+    - FirebaseAuth (= 5.3.1)
+  - Firebase/Core (5.17.0):
+    - Firebase/CoreOnly
+    - FirebaseAnalytics (= 5.6.0)
+  - Firebase/CoreOnly (5.17.0):
+    - FirebaseCore (= 5.3.0)
+  - FirebaseAnalytics (5.6.0):
+    - FirebaseCore (~> 5.3)
+    - FirebaseInstanceID (~> 3.5)
+    - GoogleAppMeasurement (= 5.6.0)
+    - GoogleUtilities/AppDelegateSwizzler (~> 5.2)
+    - GoogleUtilities/MethodSwizzler (~> 5.2)
+    - GoogleUtilities/Network (~> 5.2)
+    - "GoogleUtilities/NSData+zlib (~> 5.2)"
+    - nanopb (~> 0.3)
+  - FirebaseAuth (5.3.1):
+    - FirebaseAuthInterop (~> 1.0)
+    - FirebaseCore (~> 5.2)
+    - GoogleUtilities/Environment (~> 5.2)
+    - GTMSessionFetcher/Core (~> 1.1)
+  - FirebaseAuthInterop (1.0.0)
+  - FirebaseCore (5.3.0):
+    - GoogleUtilities/Logger (~> 5.2)
+  - FirebaseInstanceID (3.5.0):
+    - FirebaseCore (~> 5.3)
+    - GoogleUtilities/Environment (~> 5.3)
+    - GoogleUtilities/UserDefaults (~> 5.3)
+  - GoogleAppMeasurement (5.6.0):
+    - GoogleUtilities/AppDelegateSwizzler (~> 5.2)
+    - GoogleUtilities/MethodSwizzler (~> 5.2)
+    - GoogleUtilities/Network (~> 5.2)
+    - "GoogleUtilities/NSData+zlib (~> 5.2)"
+    - nanopb (~> 0.3)
+  - GoogleUtilities/AppDelegateSwizzler (5.3.7):
+    - GoogleUtilities/Environment
+    - GoogleUtilities/Logger
+    - GoogleUtilities/Network
+  - GoogleUtilities/Environment (5.3.7)
+  - GoogleUtilities/Logger (5.3.7):
+    - GoogleUtilities/Environment
+  - GoogleUtilities/MethodSwizzler (5.3.7):
+    - GoogleUtilities/Logger
+  - GoogleUtilities/Network (5.3.7):
+    - GoogleUtilities/Logger
+    - "GoogleUtilities/NSData+zlib"
+    - GoogleUtilities/Reachability
+  - "GoogleUtilities/NSData+zlib (5.3.7)"
+  - GoogleUtilities/Reachability (5.3.7):
+    - GoogleUtilities/Logger
+  - GoogleUtilities/UserDefaults (5.3.7):
+    - GoogleUtilities/Logger
+  - gRPC-Core (1.12.0):
+    - gRPC-Core/Implementation (= 1.12.0)
+    - gRPC-Core/Interface (= 1.12.0)
+  - gRPC-Core/Implementation (1.12.0):
+    - BoringSSL (~> 10.0)
+    - gRPC-Core/Interface (= 1.12.0)
+    - nanopb (~> 0.3)
+  - gRPC-Core/Interface (1.12.0)
+  - GTMSessionFetcher/Core (1.2.1)
+  - MessagesClientGRPC (0.0.1):
+    - BoringSSL
+    - gRPC-Core
+    - SwiftGRPC
+  - nanopb (0.3.901):
+    - nanopb/decode (= 0.3.901)
+    - nanopb/encode (= 0.3.901)
+  - nanopb/decode (0.3.901)
+  - nanopb/encode (0.3.901)
+  - SwiftGRPC (0.8.0):
+    - BoringSSL (~> 10.0)
+    - gRPC-Core (~> 1.12.0)
+    - SwiftProtobuf (~> 1.3.1)
+  - SwiftProtobuf (1.3.1)
+
+DEPENDENCIES:
+  - Firebase/Auth
+  - Firebase/Core
+  - MessagesClientGRPC
+
+SPEC REPOS:
+  https://github.com/Alexpop2/PodSpecs.git:
+    - MessagesClientGRPC
+  https://github.com/cocoapods/specs.git:
+    - BoringSSL
+    - Firebase
+    - FirebaseAnalytics
+    - FirebaseAuth
+    - FirebaseAuthInterop
+    - FirebaseCore
+    - FirebaseInstanceID
+    - GoogleAppMeasurement
+    - GoogleUtilities
+    - gRPC-Core
+    - GTMSessionFetcher
+    - nanopb
+    - SwiftGRPC
+    - SwiftProtobuf
+
+SPEC CHECKSUMS:
+  BoringSSL: e10f92a27043805c01071fe815a5cd98ae8212e7
+  Firebase: 59d557e064217fab6a03ff00baa73c06e73832e6
+  FirebaseAnalytics: 75e4bbc6417d190cc98ec1f17c41a4fad4c2c976
+  FirebaseAuth: 0f61e1329237da5682c49c9abd135e8f9d07a151
+  FirebaseAuthInterop: 0ffa57668be100582bb7643d4fcb7615496c41fc
+  FirebaseCore: c0c4befb82374d6aef64d800e569f47625352edc
+  FirebaseInstanceID: 4522aad88f69297622062c0e9ffccdee3dd9b151
+  GoogleAppMeasurement: 008e04ecd8efedd97a693aea8634aefe220bd26e
+  GoogleUtilities: 111a012f4c3a29c9e7c954c082fafd6ee3c999c0
+  gRPC-Core: 9696b220565b283e021cf2722d473a4a74b7622a
+  GTMSessionFetcher: 32aeca0aa144acea523e1c8e053089dec2cb98ca
+  MessagesClientGRPC: 17afe611093f1401b2165dd3b85d1ac8d74ebc20
+  nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
+  SwiftGRPC: ac4a52f16c89b897607faac39df291bd68dcb767
+  SwiftProtobuf: 84cd6b8f4fd2fc3d9fbd80a0aaf2e957d52824ec
+
+PODFILE CHECKSUM: 47f98053c883f10b82b15091e6190076c2de606a
+
+COCOAPODS: 1.5.3
